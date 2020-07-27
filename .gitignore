@@ -1,3 +1,7 @@
 Config.ini
 venv
 .idea
+tmpTacksFolder
+downloadedLog.log
+*.session
+channelDump
