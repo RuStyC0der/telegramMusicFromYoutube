@@ -1,7 +1,7 @@
 import os
 import eyed3
 
-from src.youtubeSource import downloadLatestFromChannel
+from src.youtubeSource import *
 from src.utils import *
 
 
@@ -16,13 +16,13 @@ def changeArtistInMP3File(trackPath, artist):
 
 def channelUpdate(channel, TelegramClientInstance):
 
-    for youtubeChannelURL in channel.youtubeChannelURLList:
+    for youtubeChannelURL in channel.getYouTubeChannelList():
 
-        print("downloading channel {0}, with timestamp {1}".format(youtubeChannelURL, channel.lastDownloadedTime))
+        print("downloading channel {0}, with timestamp {1}".format(youtubeChannelURL, channel.getLastDownloadedTime()))
 
         try:
-            downloadLatestFromChannel(youtubeChannelURL, channel.lastDownloadedTime)
-        except TimeoutError:
+            downloadLatestFromChannel(youtubeChannelURL, channel.getLastDownloadedTime())
+        except DateRangeError:
             pass
         except:
             print("an error occurred while downloading channel {0}".format(youtubeChannelURL))
@@ -48,14 +48,14 @@ def channelUpdate(channel, TelegramClientInstance):
             return True
 
 
-        for i in musicFiles: changeArtistInMP3File(path + i, channel.telegramChannelName)
+        for i in musicFiles: changeArtistInMP3File(path + i, channel.getTrackSign())
 
         with TelegramClientInstance:
             for musicFile in musicFiles:
-                print("uploading {0} to tg chat {1}".format(musicFile, channel.telegramChanelID))
+                print("uploading {0} to tg chat {1}".format(musicFile, channel.getTelegramChanelID()))
 
                 try:
-                    TelegramClientInstance.send_file(channel.telegramChanelID, path + musicFile)
+                    TelegramClientInstance.send_file(channel.getTelegramChanelID(), path + musicFile)
                 except:
                     print("not uploaded {0}, keep in folder".format(musicFile))
                     continue
@@ -73,7 +73,9 @@ def channelUpdate(channel, TelegramClientInstance):
 if __name__ == '__main__':
     from src.Channel import Channel
 
-    ch = Channel(["https://www.youtube.com/channel/UCNZq4pkZa4Wk5mHzMLEgO3g"], "sukanz", '20200720')
+
+
+    ch = Channel("./channelConfig/test.json")
 
     import configparser
 
