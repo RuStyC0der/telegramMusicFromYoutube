@@ -1,6 +1,7 @@
 import configparser
 import threading
 from time import sleep
+import os
 
 from telethon.sync import TelegramClient
 
@@ -15,22 +16,29 @@ config.read("Config.ini")
 api_id = config['Telegram']['api_id']
 api_hash = config['Telegram']['api_hash']
 session = config['Telegram']['session']
-TelegramClientInstance = TelegramClient(session=session, api_id=api_id, api_hash=api_hash)
-TelegramClientInstance.start()
-
 
 
 def worker(channel):
     if (channelUpdate(channel, TelegramClientInstance)):
         channel.lastDownloadedTimeUpdate()
 
-while True:
-    for channel in channelList:
-        thread = Thread(target=worker, args=[channel])
-        thread.start()
 
-    while threading.active_count() > 1:
-        sleep(1)
+if __name__ == '__main__':
 
-    sleep(60)
-    pull.saveTimestamps()
+    TelegramClientInstance = TelegramClient(session=session, api_id=api_id, api_hash=api_hash)
+    TelegramClientInstance.start()
+
+    channelConfigDirectory = "./channelConfig/"
+
+    channelList = [Channel(channelConfigDirectory + config) for config in os.listdir(channelConfigDirectory) if
+                   config.endswith(".json")]
+
+    while True:
+        for channel in channelList:
+            thread = Thread(target=worker, args=[channel])
+            thread.start()
+
+        while threading.active_count() > 1:
+            sleep(1)
+
+        sleep(60)

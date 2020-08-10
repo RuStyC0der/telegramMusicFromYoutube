@@ -13,9 +13,9 @@ def downloadLatestFromChannel(chanelURL, lastTimeDownloaded, maxDurationInSecond
 
         # hardcore daterange cutting (stop downloading after first detection)
         date = info_dict.get('upload_date')
-        print("////////////////////////////////")
-        print(date)
-        print(lastTimeDownloaded)
+        # print("////////////////////////////////")
+        # print(date)
+        # print(lastTimeDownloaded)
         if date is not None:
             dateRange = youtube_dl.utils.DateRange(lastTimeDownloaded)
             if date not in dateRange:

@@ -7,9 +7,28 @@ from src.utils import *
 
 
 
-def changeArtistInMP3File(trackPath, artist):
-    audiofile = eyed3.load(trackPath)
+def prepareTrack(trackPath, trackFileName, trackSign=" "):
+
+
+    track = trackFileName[:-4].split(" - ")
+
+    if len(track) < 2:
+        track = track[0].split(" | ")
+        if len(track) < 2:
+            title = track[0]
+            artist = trackSign
+        else:
+            artist = track[0]
+            title = "".join(track[1:])
+    else:
+        artist = track[0]
+        title = "".join(track[1:])
+
+
+    audiofile = eyed3.load(trackPath + trackFileName)
     audiofile.tag.artist = artist
+    audiofile.tag.title = title
+    audiofile.tag.album = trackSign
 
     audiofile.tag.save()
 
@@ -48,7 +67,7 @@ def channelUpdate(channel, TelegramClientInstance):
             return True
 
 
-        for i in musicFiles: changeArtistInMP3File(path + i, channel.getTrackSign())
+        for i in musicFiles: prepareTrack(path, i, channel.getTrackSign())
 
         with TelegramClientInstance:
             for musicFile in musicFiles:
@@ -56,8 +75,8 @@ def channelUpdate(channel, TelegramClientInstance):
 
                 try:
                     TelegramClientInstance.send_file(channel.getTelegramChanelID(), path + musicFile)
-                except:
-                    print("not uploaded {0}, keep in folder".format(musicFile))
+                except Exception as e:
+                    print("not uploaded {0}, keep in folder with error: {1}".format(musicFile, e))
                     continue
 
                 print("uploaded {0}, removing...".format(musicFile))
