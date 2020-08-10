@@ -36,6 +36,7 @@ if __name__ == '__main__':
     while True:
         for channel in channelList:
             thread = Thread(target=worker, args=[channel])
+            thread.daemon = True
             thread.start()
 
         while threading.active_count() > 1:
