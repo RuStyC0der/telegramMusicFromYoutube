@@ -10,6 +10,9 @@ from src.channelUpdate import channelUpdate
 
 from threading import Thread
 
+
+
+
 config = configparser.ConfigParser()
 config.read("Config.ini")
 
@@ -24,6 +27,10 @@ def worker(channel):
 
 
 if __name__ == '__main__':
+
+    import sys
+
+    sys.path.append("..")
 
     TelegramClientInstance = TelegramClient(session=session, api_id=api_id, api_hash=api_hash)
     TelegramClientInstance.start()
