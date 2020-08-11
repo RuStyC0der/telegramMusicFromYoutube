@@ -22,15 +22,11 @@ session = config['Telegram']['session']
 
 
 def worker(channel):
-    if (channelUpdate(channel, TelegramClientInstance)):
+    if (channelUpdate(channel, TelegramClientInstance, maxDurationInSeconds=720)):
         channel.lastDownloadedTimeUpdate()
 
 
 if __name__ == '__main__':
-
-    import sys
-
-    sys.path.append("..")
 
     TelegramClientInstance = TelegramClient(session=session, api_id=api_id, api_hash=api_hash)
     TelegramClientInstance.start()
@@ -42,11 +38,12 @@ if __name__ == '__main__':
 
     while True:
         for channel in channelList:
-            thread = Thread(target=worker, args=[channel])
-            thread.daemon = True
-            thread.start()
+            # thread = Thread(target=worker, args=[channel])
+            # thread.daemon = True
+            # thread.start()
+            worker(channel)
 
-        while threading.active_count() > 1:
-            sleep(1)
+        # while threading.active_count() > 1:
+        #     sleep(1)
 
         sleep(60)
