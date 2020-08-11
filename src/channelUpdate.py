@@ -26,6 +26,7 @@ def prepareTrack(trackPath, trackFileName, trackSign=" "):
 
 
     audiofile = eyed3.load(trackPath + trackFileName)
+
     audiofile.tag.artist = artist
     audiofile.tag.title = title
     audiofile.tag.album = trackSign
@@ -33,14 +34,14 @@ def prepareTrack(trackPath, trackFileName, trackSign=" "):
     audiofile.tag.save()
 
 
-def channelUpdate(channel, TelegramClientInstance):
+def channelUpdate(channel, TelegramClientInstance, maxDurationInSeconds=None):
 
     for youtubeChannelURL in channel.getYouTubeChannelList():
 
         print("downloading channel {0}, with timestamp {1}".format(youtubeChannelURL, channel.getLastDownloadedTime()))
 
         try:
-            downloadLatestFromChannel(youtubeChannelURL, channel.getLastDownloadedTime())
+            downloadLatestFromChannel(youtubeChannelURL, channel.getLastDownloadedTime(), maxDurationInSeconds)
         except DateRangeError:
             pass
         except:
