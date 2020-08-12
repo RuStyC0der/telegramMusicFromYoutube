@@ -38,7 +38,7 @@ def channelUpdate(channel, TelegramClientInstance, maxDurationInSeconds=None):
 
     for youtubeChannelURL in channel.getYouTubeChannelList():
 
-        print("downloading channel {0}, with timestamp {1}".format(youtubeChannelURL, channel.getLastDownloadedTime()))
+        print("[downloading] channel {0}, to tg {2} with timestamp {1}".format(youtubeChannelURL, channel.getLastDownloadedTime(), channel.getTelegramChanelID))
 
         try:
             downloadLatestFromChannel(youtubeChannelURL, channel.getLastDownloadedTime(), maxDurationInSeconds)
