@@ -31,7 +31,7 @@ if __name__ == '__main__':
     TelegramClientInstance = TelegramClient(session=session, api_id=api_id, api_hash=api_hash)
     TelegramClientInstance.start()
 
-    channelConfigDirectory = "./channelConfig/"
+    channelConfigDirectory = "./src/channelConfig/"
 
     channelList = [Channel(channelConfigDirectory + config) for config in os.listdir(channelConfigDirectory) if
                    config.endswith(".json")]
