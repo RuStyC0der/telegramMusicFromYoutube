@@ -1,5 +1,4 @@
 import configparser
-import threading
 from time import sleep
 import os
 
@@ -8,7 +7,7 @@ from telethon.sync import TelegramClient
 from src.Channel import Channel
 from src.channelUpdate import channelUpdate
 
-from threading import Thread
+# from threading import Thread
 
 
 
