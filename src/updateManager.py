@@ -42,7 +42,7 @@ if __name__ == '__main__':
             # thread.daemon = True
             # thread.start()
             worker(channel)
-            sleep(60)
+            sleep(120)
         # while threading.active_count() > 1:
         #     sleep(1)
 
