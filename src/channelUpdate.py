@@ -46,7 +46,7 @@ def channelUpdate(channel, TelegramClientInstance, maxDurationInSeconds=None):
             pass
         except:
             print("an error occurred while downloading channel {0}".format(youtubeChannelURL))
-            return False
+            continue
 
         print("Done downloading")
 
@@ -58,14 +58,14 @@ def channelUpdate(channel, TelegramClientInstance, maxDurationInSeconds=None):
             files = os.listdir(path)
         except FileNotFoundError:
             print("Directory {} not found, no files downloaded or bad path".format(path))
-            return True
+            continue
 
         musicFiles = [file for file in files if file.endswith(".mp3")]
 
 
         if len(musicFiles) == 0:
             print("empty music list")
-            return True
+            continue
 
 
         for i in musicFiles: prepareTrack(path, i, channel.getTrackSign())
@@ -84,8 +84,7 @@ def channelUpdate(channel, TelegramClientInstance, maxDurationInSeconds=None):
                 os.remove(path + musicFile)
 
         print("Uploaded")
-        return True
-
+        continue
 
 
 
