@@ -19,6 +19,7 @@ def downloadLatestFromChannel(chanelURL, lastTimeDownloaded, maxDurationInSecond
         if date is not None:
             dateRange = youtube_dl.utils.DateRange(lastTimeDownloaded)
             if date not in dateRange:
+                print("noy in date range")
                 raise DateRangeError("not in date range")
 
         duration = info_dict.get('duration')
