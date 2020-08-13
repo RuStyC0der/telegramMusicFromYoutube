@@ -23,6 +23,7 @@ session = config['Telegram']['session']
 def worker(channel):
     if (channelUpdate(channel, TelegramClientInstance, maxDurationInSeconds=720)):
         channel.lastDownloadedTimeUpdate()
+        channel.save()
 
 
 if __name__ == '__main__':
