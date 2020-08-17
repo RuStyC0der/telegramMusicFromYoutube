@@ -35,7 +35,7 @@ def prepareTrack(trackPath, trackFileName, trackSign=" "):
 
 
 def channelUpdate(channel, TelegramClientInstance, maxDurationInSeconds=None):
-
+    flag = True
     for youtubeChannelURL in channel.getYouTubeChannelList():
 
         print("[downloading] channel {0}, to tg {2} with timestamp {1}".format(youtubeChannelURL, channel.getLastDownloadedTime(), channel.getTelegramChanelID()))
@@ -46,6 +46,7 @@ def channelUpdate(channel, TelegramClientInstance, maxDurationInSeconds=None):
             pass
         except:
             print("an error occurred while downloading channel {0}".format(youtubeChannelURL))
+            flag = False
             continue
 
         print("Done downloading")
@@ -86,13 +87,12 @@ def channelUpdate(channel, TelegramClientInstance, maxDurationInSeconds=None):
         print("Uploaded")
         continue
 
+    return flag
 
 
 
 if __name__ == '__main__':
     from src.Channel import Channel
-
-
 
     ch = Channel("./channelConfig/test.json")
 
