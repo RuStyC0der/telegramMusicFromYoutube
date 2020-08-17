@@ -44,6 +44,7 @@ def downloadLatestFromChannel(chanelURL, lastTimeDownloaded, maxDurationInSecond
         'download_archive': "downloadedLog.log",
         'audio_format': 'mp3',
         'match_filter': match_filter,
+        'playlistend': 10,
         # 'progress_hooks': [_finished_hook],  # func who called after download/conversion
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
