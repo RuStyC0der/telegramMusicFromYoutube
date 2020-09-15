@@ -1,16 +1,16 @@
 #!/bin/bash
 
 installPath=/usr/local/
+logPath=/var/log/telegramMusicFromYoutube.log
 downloadDirectory="telegramMusicFromYoutube"
 
 pythonPath=$(command -v python3)
 
-echo $pythonPath
 
 cd $installPath
 
-echo "Check if python3 is installed..."
 
+echo "Check if python3 is installed..."
 if [ ! -z "$pythonPath" ]
 then
 echo "OK"
@@ -20,20 +20,17 @@ echo "Please install python and re-run this script again"
 exit 1
 fi
 
-echo "Download lasest version to $downloadDirectory..."
 
+echo "Download lasest version to $downloadDirectory..."
 if ! git clone https://github.com/RuStyC0der/telegramMusicFromYoutube/tree/master $downloadDirectory
 then
     echo "Failed to clone... exit"
     exit 1
 fi
-
 cd $downloadDirectory
 
 
-
 echo "Install requirements..."
-
 if ! $pythonPath -m pip install -r requirements.txt
 then
 echo "Failed to install requirements... exit"
@@ -56,7 +53,7 @@ Description=From youtube to telegram upload daemon
 
 [Service]
 WorkingDirectory=$(pwd)
-ExecStart=$pythonPath -m src.UpdateManager
+ExecStart=$pythonPath -m src.UpdateManager > $logPath
 Restart=always
 
 [Install]
