@@ -38,10 +38,10 @@ def channelUpdate(channel, TelegramClientInstance, maxDurationInSeconds=None):
     flag = True
     for youtubeChannelURL in channel.getYouTubeChannelList():
 
-        print("[downloading] channel {0}, to tg {2} with timestamp {1}".format(youtubeChannelURL, channel.getLastDownloadedTime(), channel.getTelegramChanelID()))
+        print("[downloading] channel {0}, to tg {1}".format(youtubeChannelURL, channel.getTelegramChanelID()))
 
         try:
-            downloadLatestFromChannel(youtubeChannelURL, channel.getLastDownloadedTime(), maxDurationInSeconds)
+            downloadLatestFromChannel(youtubeChannelURL, maxDurationInSeconds)
         except DateRangeError:
             pass
         except:

@@ -7,10 +7,6 @@ from telethon.sync import TelegramClient
 from src.Channel import Channel
 from src.channelUpdate import channelUpdate
 
-# from threading import Thread
-
-
-
 
 config = configparser.ConfigParser()
 config.read("Config.ini")
@@ -20,31 +16,18 @@ api_hash = config['Telegram']['api_hash']
 session = config['Telegram']['session']
 
 
-def worker(channel):
-    if (channelUpdate(channel, TelegramClientInstance, maxDurationInSeconds=720)):
-        channel.lastDownloadedTimeUpdate()
-        channel.save()
-
-
 if __name__ == '__main__':
 
     TelegramClientInstance = TelegramClient(session=session, api_id=api_id, api_hash=api_hash)
     TelegramClientInstance.start()
 
-    channelConfigDirectory = "./src/channelConfig/"
+    channelConfigFilesFolder = "./src/channelConfig/"
 
-    channelList = [Channel(channelConfigDirectory + config) for config in os.listdir(channelConfigDirectory) if
+    channelList = [Channel(channelConfigFilesFolder + config) for config in os.listdir(channelConfigFilesFolder) if
                    config.endswith(".json")]
 
     while True:
         for channel in channelList:
-            # thread = Thread(target=worker, args=[channel])
-            # thread.daemon = True
-            # thread.start()
-            worker(channel)
-            print("sleep....")
+            channelUpdate(channel, TelegramClientInstance, maxDurationInSeconds=720)
+            print("sleep.... 360sec")
             sleep(360)
-        # while threading.active_count() > 1:
-        #     sleep(1)
-
-
