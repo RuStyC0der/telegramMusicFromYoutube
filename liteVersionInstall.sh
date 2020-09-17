@@ -38,7 +38,7 @@ fi
 
 
 echo "Download lasest version to $downloadDirectoryName..."
-if ! git clone https://github.com/RuStyC0der/telegramMusicFromYoutube/tree/liteVersion $downloadDirectoryName
+if ! git clone https://github.com/RuStyC0der/telegramMusicFromYoutube.git $downloadDirectoryName
 then
     echo "Failed to clone... exit"
     exit 1
