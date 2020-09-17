@@ -2,7 +2,6 @@
 
 installPath=/usr/local/
 serviceFilePath=/etc/systemd/system
-logFilePath=/var/log/telegramMusicFromYoutube.log
 
 downloadDirectoryName="telegramMusicFromYoutube"
 downloadedLogFileName="downloaded.log"
@@ -78,7 +77,7 @@ Description=From youtube to telegram upload daemon
 
 [Service]
 WorkingDirectory=$(pwd)
-ExecStart=$pythonPath -m src.updateManager >> $logFilePath
+ExecStart=$pythonPath -m src.updateManager
 Restart=always
 
 [Install]
@@ -99,8 +98,6 @@ to use autorun type:
 
 systemctl enable $downloadDirectoryName.service
 systemctl start $downloadDirectoryName.service
-
-log path is: $logFilePath
 
 prepare first start to create session...
 after sesion creat you can stop command using ctrl+c 
