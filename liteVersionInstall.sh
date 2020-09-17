@@ -88,4 +88,12 @@ WantedBy=multi-user.target
 echo "$serviceBody" > $serviceFilePath/$downloadDirectoryName.service
 chmod 644 $serviceFilePath/$downloadDirectoryName.service
 
-systemd daemon-reload
+systemctl daemon-reload
+
+echo "service  already installed
+to one time start use command
+systemctl start $downloadDirectoryName.service
+to use autorun type 
+systemctl enable $downloadDirectoryName.service
+systemctl start $downloadDirectoryName.service
+"
