@@ -62,13 +62,15 @@ then
 cp $scriptPath/$configFileName ./
 else
 echo "Config Not Found!"
+fi
+
 echo "moving download log..."
 if test -f $scriptPath/$downloadedLogFileName
 then
 cp $scriptPath/$downloadedLogFileName ./
 else
 echo "download log Not Found!"
-
+fi
 
 serviceBody="
 [Unit]
@@ -85,6 +87,5 @@ WantedBy=multi-user.target
 
 echo "$serviceBody" > $serviceFilePath/$downloadDirectoryName.service
 chmod 644 $serviceFilePath/$downloadDirectoryName.service
+
 systemd daemon-reload
-
-
