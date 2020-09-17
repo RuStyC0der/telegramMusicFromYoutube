@@ -78,7 +78,7 @@ Description=From youtube to telegram upload daemon
 
 [Service]
 WorkingDirectory=$(pwd)
-ExecStart=$pythonPath -m src.updateManager > $logPath
+ExecStart=$pythonPath -m src.updateManager >> $logPath
 Restart=always
 
 [Install]
